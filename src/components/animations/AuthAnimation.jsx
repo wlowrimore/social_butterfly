@@ -7,7 +7,7 @@ const AuthAnimation = () => {
       loop
       animationData={HomeAnimation}
       play
-      className='w-[80%] h-auto lg:w-[60%]'
+      className='w-[80%] h-auto lg:w-[50%]'
     />
   )
 }
