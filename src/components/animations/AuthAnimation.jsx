@@ -1,5 +1,5 @@
 import Lottie from 'react-lottie-player';
-import HomeAnimation from 'public/assets/home-page-animation.json'
+import HomeAnimation from 'public/assets/animations/home-page-animation.json'
 
 const AuthAnimation = () => {
   return (

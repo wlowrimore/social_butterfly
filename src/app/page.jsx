@@ -7,7 +7,7 @@ import Feed from '@/components/feed';
 const HomePage = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
   return (
-    isAuthenticated ? <Feed /> : <Auth />
+    isAuthenticated ? <Feed setIsAuthenticated={setIsAuthenticated} /> : <Auth />
   )
 }
 
