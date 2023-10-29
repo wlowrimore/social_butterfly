@@ -44,7 +44,7 @@ const Feed = ({ setIsAuthenticated }) => {
           <div className='bg-green-200 mt-12 py-6 mx-auto w-[90%] xl:w-[60%] px-[6rem] flex flex-col gap-2 items-center'>
             <div className='flex gap-2 items-center justify-start w-full mb-1'>
               <Image src='https://avatars.githubusercontent.com/u/92553989?v=4' alt='' width={44} height={44} className='border border-black rounded-full' />
-              <div className='flex-col'>
+              <div className='flex-col w-full'>
                 <p className='text-xs font-bold'>username</p>
                 <p className='text-xs'><em>Oct 28 2023 2:42 pm</em></p>
               </div>
