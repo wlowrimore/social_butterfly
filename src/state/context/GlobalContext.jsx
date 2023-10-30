@@ -3,12 +3,13 @@
 import { createContext, useReducer, useEffect } from 'react'
 import { globalReducer } from '../reducers/GlobalReducer'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import useFetchCurrentUser from '@/utils/fetchCurrentUser';
 
 const initialState = {
   user: {},
   isAuthenticated: false,
   isOnboarded: false,
-  isLoading: false
+  isLoading: true
 }
 
 export const GlobalContext = createContext(initialState)
@@ -25,6 +26,12 @@ const GlobalContextProvider = ({ children }) => {
           type: 'SET_IS_AUTHENTICATED',
           payload: {
             isAuthenticated: true
+          }
+        })
+        dispatch({
+          type: 'SET_LOADING',
+          payload: {
+            isLoading: false
           }
         })
       }

@@ -10,12 +10,12 @@ import {
   GlobalContext,
   GlobalDispatchContext
 } from '@/state/context/GlobalContext'
-import { auth, db } from '../../lib/firebase';
+import { auth } from '../../lib/firebase';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { handlePromise } from '@/utils/handlePromise'
 import toast from 'react-hot-toast'
 import LoadingOverlay from '../LoadingOverlay'
-import { doc, getDoc } from "firebase/firestore";
+import useFetchCurrentUser from '@/utils/fetchCurrentUser'
 
 const lounge = localFont({
   src: [
@@ -31,6 +31,8 @@ const Auth = () => {
 
   const { isAuthenticated, isOnboarded, isLoading, user } =
     useContext(GlobalContext)
+
+  const { fetchUser } = useFetchCurrentUser()
 
   const dispatch = useContext(GlobalDispatchContext)
 
@@ -58,30 +60,7 @@ const Auth = () => {
     }
   }
 
-  const fetchUser = async () => {
-
-    const currentUserRef = doc(db, "users", email);
-    const currentUserSnap = await getDoc(currentUserRef);
-
-    if (docSnap.exists()) {
-      dispatch({
-        type: 'SET_USER',
-        payload: {
-          user: currentUserSnap.data()
-        }
-      })
-      dispatch({
-        type: 'SET_IS_ONBOARDED',
-        payload: {
-          isOnboarded: true
-        }
-      })
-    } else {
-      toast('Please complete onboarding.')
-    }
-  }
-
-  const submitHandler = async e => {
+  const submitHandler = async (e) => {
     e.preventDefault()
     dispatch({
       type: 'SET_LOADING',
@@ -107,6 +86,11 @@ const Auth = () => {
     resetForm()
   }
 
+  const onboardingSubmitHandler = async (e) => {
+    e.preventDefault()
+    console.log(onboardingForm);
+  }
+
   return (
     <main className='min-h-screen w-screen flex items-center justify-center bg-[#fafafa] container'>
       <div className='flex justify-center'>
@@ -116,77 +100,80 @@ const Auth = () => {
         <div className='w-1/3 flex flex-col justify-center items-center'>
           <div className='h-auto bg-white border border-gray-300 mb-2 relative'>
             {isLoading && <LoadingOverlay />}
-            <form
-              onSubmit={submitHandler}
-              className='flex flex-col space-y-4 pt-12 pb-6 px-12 items-center'
-            >
-              <div
-                className={`${lounge.className} tracking-wider text-5xl pb-12`}
+            {!isAuthenticated &&
+              <form
+                onSubmit={submitHandler}
+                className='flex flex-col space-y-4 pt-12 pb-6 px-12 items-center'
               >
-                PhotoGram
-              </div>
-              <input
-                type='email'
-                name='email'
-                id='email'
-                onChange={onChangeHandler}
-                value={form.email}
-                className='bg-gray-100/70 w-full h-[2.5rem] px-2 font-light tracking-wide outline-none border border-gray-200/60 focus:border-gray-200 focus:bg-transparent rounded placeholder:text-sm transition'
-                placeholder='Email'
-              />
-              <input
-                type='password'
-                name='password'
-                id='password'
-                onChange={onChangeHandler}
-                value={form.password}
-                className='bg-gray-100/70 w-full h-[2.5rem] px-2 font-light tracking-wide outline-none border border-gray-200/60 focus:border-gray-200 focus:bg-transparent rounded placeholder:text-sm transition'
-                placeholder='Password'
-              />
-              <button
-                type='submit'
-                className='w-full bg-red-400/70 text-white text-sm font-semibold py-1 px-6 border-none rounded active:scale-95 transform transition disabled:bg-neutral-300 disabled:scale-100'
-                disabled={isDisabled}
+                <div
+                  className={`${lounge.className} tracking-wider text-5xl pb-12`}
+                >
+                  PhotoGram
+                </div>
+                <input
+                  type='email'
+                  name='email'
+                  id='email'
+                  onChange={onChangeHandler}
+                  value={form.email}
+                  autoComplete='username'
+                  className='bg-gray-100/70 w-full h-[2.5rem] px-2 font-light tracking-wide outline-none border border-gray-200/60 focus:border-gray-200 focus:bg-transparent rounded placeholder:text-sm transition'
+                  placeholder='Email'
+                />
+                <input
+                  type='password'
+                  name='password'
+                  id='password'
+                  onChange={onChangeHandler}
+                  value={form.password}
+                  autoComplete='current-password'
+                  className='bg-gray-100/70 w-full h-[2.5rem] px-2 font-light tracking-wide outline-none border border-gray-200/60 focus:border-gray-200 focus:bg-transparent rounded placeholder:text-sm transition'
+                  placeholder='Password'
+                />
+                <button
+                  type='submit'
+                  className='w-full bg-red-400/70 text-white text-sm font-semibold py-1 px-6 border-none rounded active:scale-95 transform transition disabled:bg-neutral-300 disabled:scale-100'
+                  disabled={isDisabled}
+                >
+                  {isLoginForm ? 'Login' : 'Signup'}
+                </button>
+              </form>}
+            {isAuthenticated && !isOnboarded &&
+              <form
+                onSubmit={onboardingSubmitHandler}
+                className='flex flex-col space-y-4 pt-12 pb-6 px-12 items-center'
               >
-                {isLoginForm ? 'Login' : 'Signup'}
-              </button>
-            </form>
-
-            <form
-              onSubmit={submitHandler}
-              className='flex flex-col space-y-4 pt-12 pb-6 px-12 items-center'
-            >
-              <div
-                className={`${lounge.className} tracking-wider text-5xl pb-12`}
-              >
-                PhotoGram
-              </div>
-              <input
-                type='email'
-                name='email'
-                id='email'
-                onChange={onChangeHandler}
-                value={form.email}
-                className='bg-gray-100/70 w-full h-[2.5rem] px-2 font-light tracking-wide outline-none border border-gray-200/60 focus:border-gray-200 focus:bg-transparent rounded placeholder:text-sm transition'
-                placeholder='Email'
-              />
-              <input
-                type='password'
-                name='password'
-                id='password'
-                onChange={onChangeHandler}
-                value={form.password}
-                className='bg-gray-100/70 w-full h-[2.5rem] px-2 font-light tracking-wide outline-none border border-gray-200/60 focus:border-gray-200 focus:bg-transparent rounded placeholder:text-sm transition'
-                placeholder='Password'
-              />
-              <button
-                type='submit'
-                className='w-full bg-red-400/70 text-white text-sm font-semibold py-1 px-6 border-none rounded active:scale-95 transform transition disabled:bg-neutral-300 disabled:scale-100'
-                disabled={isDisabled}
-              >
-                {isLoginForm ? 'Login' : 'Signup'}
-              </button>
-            </form>
+                <div
+                  className={`${lounge.className} tracking-wider text-5xl pb-12`}
+                >
+                  PhotoGram
+                </div>
+                <input
+                  type='username'
+                  name='username'
+                  id='username'
+                  onChange={onboardingFormOnChangeHandler}
+                  value={onboardingForm.username}
+                  className='bg-gray-100/70 w-full h-[2.5rem] px-2 font-light tracking-wide outline-none border border-gray-200/60 focus:border-gray-200 focus:bg-transparent rounded placeholder:text-sm transition'
+                  placeholder='username'
+                />
+                <input
+                  type='fullName'
+                  name='fullName'
+                  id='fullName'
+                  onChange={onboardingFormOnChangeHandler}
+                  value={onboardingForm.fullName}
+                  className='bg-gray-100/70 w-full h-[2.5rem] px-2 font-light tracking-wide outline-none border border-gray-200/60 focus:border-gray-200 focus:bg-transparent rounded placeholder:text-sm transition'
+                  placeholder='your full name'
+                />
+                <button
+                  type='submit'
+                  className='w-full bg-red-400/70 text-white text-sm font-semibold py-1 px-6 border-none rounded active:scale-95 transform transition disabled:bg-neutral-300 disabled:scale-100'
+                  disabled={!onboardingForm.username || !onboardingForm.fullName}
+                >
+                  Submit
+                </button>
+              </form>}
             <div className='w-full flex justify-center items-center px-12'>
               <div className='w-full h-[0.05rem] bg-neutral-400/80' />
               <div className='text-sm font-semibold text-neutral-400/70 mx-3'>
