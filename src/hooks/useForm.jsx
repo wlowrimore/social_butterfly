@@ -10,9 +10,14 @@ const useForm = (values) => {
     }));
   }
 
+  const resetForm = () => {
+    setForm(values);
+  }
+
   return {
     form,
     onChangeHandler,
+    resetForm,
   }
 }
 
