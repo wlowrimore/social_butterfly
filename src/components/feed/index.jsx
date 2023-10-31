@@ -216,17 +216,8 @@ const Feed = ({ setIsAuthenticated }) => {
 
 export default Feed
 
-{
-  /* <div className='pt-24 text-center'>
-            <button
-              type='button'
-              onClick={(e) => setIsAuthenticated(false)}
-              className='w-fit py-1 px-2 border-none rounded bg-black text-white'
-            >
-              Logout
-            </button>
-          </div> */
-}
+
+
 
 {
   /* <div className='w-4/5 flex gap-4'>

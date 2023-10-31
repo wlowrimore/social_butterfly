@@ -8,7 +8,7 @@ export const globalReducer = (state, action) => {
     case 'SET_LOADING':
       return {
         ...state,
-        isloading: action.payload.isLoading,
+        isLoading: action.payload.isLoading,
       }
     case 'SET_IS_AUTHENTICATED':
       return {

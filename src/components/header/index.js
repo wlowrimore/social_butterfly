@@ -4,7 +4,8 @@ import localFont from 'next/font/local';
 import Link from 'next/link';
 import Image from 'next/image';
 import Camera from 'public/assets/icons/header-camera.svg'
-
+import { signOut } from 'firebase/auth'
+import { auth } from '@/lib/firebase';
 const lounge = localFont({
   src: [
     {
@@ -14,6 +15,12 @@ const lounge = localFont({
   ],
 })
 const Header = () => {
+
+  const handleLogout = async () => {
+    signOut(auth);
+    window.location.reload()
+  }
+
   return (
     <header className='w-[5rem] lg:w-[15rem] xl:w-[21rem] min-h-screen fixed flex flex-col mx-auto p-6 bg-white border-r border-neutral-400/50 shadow-md'>
       <div className={`hidden lg:block ${lounge.className} text-4xl tracking-wider pb-6 mb-5`}>
@@ -83,8 +90,9 @@ const Header = () => {
       </ul>
       <div className='mt-auto mb-20'>
         <button
+          onClick={handleLogout}
           type='button'
-          className='w-1/2 bg-red-400/70 text-white text-sm font-semibold py-1 px-6 border-none rounded active:scale-95 transform transition disabled:bg-red-400/40 disabled:scale-100'
+          className='w-1/2 bg-neutral-800 cursor-pointer text-white text-sm font-semibold py-1 px-6 rounded active:scale-95 transform transition hover:bg-transparent border-2 border-neutral-400 hover:text-neutral-800 duration-300'
         >
           Logout
         </button>

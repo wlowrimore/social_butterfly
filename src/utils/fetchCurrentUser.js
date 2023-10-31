@@ -1,30 +1,24 @@
-'use client'
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "@/lib/firebase";
+import { doc, getDoc } from 'firebase/firestore';
+import { useContext } from 'react';
+import { auth, db } from '../lib/firebase';
+import { GlobalDispatchContext } from '../state/context/GlobalContext';
 
 const useFetchCurrentUser = () => {
+
   const fetchUser = async () => {
-    const currentUserRef = doc(db, "users", email);
+    // find the user info with the help of id or email
+    if (!auth?.currentUser?.email) return;
+    const currentUserRef = doc(db, 'users', auth.currentUser.email);
     const currentUserSnap = await getDoc(currentUserRef);
 
-    if (docSnap.exists()) {
-      dispatch({
-        type: 'SET_USER',
-        payload: {
-          user: currentUserSnap.data()
-        }
-      })
-      dispatch({
-        type: 'SET_IS_ONBOARDED',
-        payload: {
-          isOnboarded: true
-        }
-      })
+    if (currentUserSnap.exists()) {
+      return currentUserSnap.data();
     } else {
-      toast('Please complete onboarding.')
+      return null;
     }
-  }
-  return { fetchUser };
-}
+  };
 
-export default useFetchCurrentUser
+  return { fetchUser };
+};
+
+export default useFetchCurrentUser;
