@@ -12,10 +12,10 @@ const lounge = localFont({
 
 const LoadingOverlay = () => {
   return (
-    <div className='absolute inset-0 z-10 w-full h-full bg-white text-red-600/70 text-4xl flex items-center justify-center'>
+    <div className='absolute inset-0 z-10 w-full h-full bg-white text-emerald-800 text-4xl flex items-center justify-center'>
       <div className='flex flex-col justify-center items-center mx-auto space-y-3'>
         <PiSpinnerGapBold className='animate-spin' />
-        <p className={`${lounge.className} text-red-600/70`}>Loading PhotoGram...</p>
+        <p className={`${lounge.className} text-emerald-800`}>Loading Famshare...</p>
       </div>
     </div>
   )

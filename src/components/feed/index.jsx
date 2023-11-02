@@ -8,6 +8,7 @@ import Messages from '../Messages'
 import SharePost from '../SharePost'
 import SavePost from '../SavePost'
 import SmileyEmoji from '../SmileyEmoji'
+import Post from '../post'
 
 const Feed = ({ setIsAuthenticated }) => {
   const [photos, setPhotos] = useState([])
@@ -32,8 +33,57 @@ const Feed = ({ setIsAuthenticated }) => {
   return (
     <>
       <Header />
-      <main className='w-full h-screen ml-[5rem] lg:ml-[15rem] xl:ml-[21rem] flex'>
-        {/* left */}
+      <div className='flex w-full max-w-screen-lg ml-[35rem] mt-12 gap-6'>
+        <div className='flex flex-col w-full space-y-5'>
+          <section className='flex mb-12 space-x-4 bg-transparent'>
+            {new Array(8).fill(0).map((_, i) => (
+              <div
+                key={i}
+                className="rounded-full w-14 ring-[2px] ring-emerald-500 ring-offset-2 h-14 bg-neutral-200/60 flex-none"
+              />
+            ))}
+          </section>
+          <section className='flex flex-col gap-y-6'>
+            {
+              new Array(5).fill(1).map((_, i) => (
+                <Post key={i} />
+              ))
+            }
+          </section>
+        </div>
+
+        {/* right */}
+        <div className='relative max-w-full'>
+          <div className='flex'>
+            Bali is predominantly a Hindu country. Bali is known for its elaborate, traditional dancing. The dancing is inspired by its Hindi beliefs. Most of the dancing portrays tales of good versus evil. To watch the dancing is a breathtaking experience. Lombok has some impressive points of interest – the majestic Gunung Rinjani is an active volcano. It is the second highest peak in Indonesia. Art is a Balinese passion. Batik paintings and carved statues make popular souvenirs. Artists can be seen whittling and painting on the streets, particularly in Ubud. It is easy to appreciate each island as an attractive tourist destination. Majestic scenery; rich culture; white sands and warm, azure waters draw visitors like magnets every year. Snorkelling and diving around the nearby Gili Islands is magnificent. Marine fish, starfish, turtles and coral reef are present in abundance. Bali and Lombok are part of the Indonesian archipelago. Bali has some spectacular temples. The most significant is the Mother Temple, Besakih. The inhabitants of Lombok are mostly Muslim with a Hindu minority. Lombok remains the most understated of the two islands. Lombok has several temples worthy of a visit, though they are less prolific. Bali and Lombok are neighbouring islands.
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
+
+export default Feed
+
+
+
+
+{
+  /* <div className='w-4/5 flex gap-4'>
+          {photos.map((photo) => (
+            <div className='flex flex-col justify-center items-center'>
+              <div key={photo.id} className='border-2 border-red-400 rounded-full p-[.15rem] w-20 h-20'>
+                <Image src={photo.thumbnailUrl} alt='placeholder' width={72} height={72} className='rounded-full border-2 border-black' />
+              </div>
+              <span className='text-xs'>username</span>
+            </div>
+          ))}
+        </div> */
+}
+
+
+
+{/* <main className='w-full h-screen ml-[5rem] lg:ml-[15rem] xl:ml-[21rem] flex'>
         <section className='w-[55%] h-full pl-32'>
           <div className='flex justify-center gap-6 pt-12'>
             {photos.map(photo => (
@@ -209,25 +259,4 @@ const Feed = ({ setIsAuthenticated }) => {
             </div>
           </div>
         </section>
-      </main>
-    </>
-  )
-}
-
-export default Feed
-
-
-
-
-{
-  /* <div className='w-4/5 flex gap-4'>
-          {photos.map((photo) => (
-            <div className='flex flex-col justify-center items-center'>
-              <div key={photo.id} className='border-2 border-red-400 rounded-full p-[.15rem] w-20 h-20'>
-                <Image src={photo.thumbnailUrl} alt='placeholder' width={72} height={72} className='rounded-full border-2 border-black' />
-              </div>
-              <span className='text-xs'>username</span>
-            </div>
-          ))}
-        </div> */
-}
+      </main> */}

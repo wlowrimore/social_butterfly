@@ -1,20 +1,29 @@
 'use client'
 
 import localFont from 'next/font/local';
+import { Satisfy } from 'next/font/google';
 import Link from 'next/link';
 import Image from 'next/image';
 import Camera from 'public/assets/icons/header-camera.svg'
 import { signOut } from 'firebase/auth'
 import { auth } from '@/lib/firebase';
-const lounge = localFont({
-  src: [
-    {
-      path: '../../app/fonts/lounge.ttf',
-      weight: '800'
-    }
-  ],
+import { useState } from 'react';
+
+// const lounge = localFont({
+//   src: [
+//     {
+//       path: '../../app/fonts/lounge.ttf',
+//       weight: '800'
+//     }
+//   ],
+// })
+
+const satisfy = Satisfy({
+  subsets: ['latin'],
+  weight: '400'
 })
 const Header = () => {
+  const [isOpen, setIsOpen] = useState();
 
   const handleLogout = async () => {
     signOut(auth);
@@ -23,38 +32,46 @@ const Header = () => {
 
   return (
     <header className='w-[5rem] lg:w-[15rem] xl:w-[21rem] min-h-screen fixed flex flex-col mx-auto p-6 bg-white border-r border-neutral-400/50 shadow-md'>
-      <div className={`hidden lg:block ${lounge.className} text-4xl tracking-wider pb-6 mb-5`}>
-        <h2>PhotoGram</h2>
+      <div className={`hidden lg:block ${satisfy.className} text-4xl tracking-wider pb-6 mb-5`}>
+        <h2>Famshare</h2>
       </div>
       <div className='block lg:hidden pt-2 pb-6 mb-5 opacity-70'>
         <Image src={Camera} alt='' width={28} height={28} />
       </div>
-      {/* <div className='bg-gray-100/70 items-center flex h-[2.5rem] font-light tracking-wide outline-none border border-gray-200/60 focus:border-gray-200 focus:bg-transparent rounded placeholder:text-sm transition'>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-[2.3rem] p-1 rounded bg-gray-100/70 text-gray-400/70">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-          </svg>
-          <input type='search' name='search' id='search' placeholder='Search' className='w-full h-full border-none rounded outline-none pl-2 bg-gray-100/70 focus:bg-transparent' >
-
-          </input>
-        </div> */}
       <ul className='flex flex-col gap-8'>
         <Link href='/'>
           <li className='flex font-semibold gap-4 items-center'>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 text-neutral-800 hover:text-neutral-400/70 transition duration-400">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 text-neutral-800 hover:text-neutral-400/70 transition duration-400">
               <path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
               <path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
             </svg>
             <span className='hidden lg:block'>Home</span>
           </li>
         </Link>
+
         <li className='flex gap-4 items-center'>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
           </svg>
           <span className='hidden lg:block'>Search</span>
         </li>
+
+
+        {/* <div className='bg-gray-100/70 items-center flex h-[2.5rem] font-light tracking-wide outline-none border border-gray-200/60 focus:border-gray-200 focus:bg-transparent rounded placeholder:text-sm transition mb-12'>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-[2.3rem] p-1 rounded bg-gray-100/70 text-gray-400/70">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+          </svg>
+          <input type='search' name='search' id='search' placeholder='Search' className='w-full h-full border-none rounded outline-none pl-2 bg-gray-100/70 focus:bg-transparent'>
+          </input>
+        </div>
+        <hr />
+        <div className=''>
+          <h2 className='text-xl tracking-wide my-10'>Recent</h2>
+        </div> */}
+
+
         <li className='flex gap-4 items-center'>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" enableBackground="new 0 0 256 256" className='w-7 h-7'>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" enableBackground="new 0 0 256 256" className='w-8 h-8'>
 
             <path fill="#000000" d="M128,246c-65.2,0-118-52.8-118-118C10,62.8,62.8,10,128,10c65.2,0,118,52.8,118,118C246,193.2,193.2,246,128,246L128,246z M128,20.1C68.4,20.1,20.1,68.4,20.1,128c0,59.6,48.3,107.9,107.9,107.9c59.6,0,107.9-48.3,107.9-107.9C235.9,68.4,187.6,20.1,128,20.1L128,20.1z M170.5,201.4l-44.7-38.5c-18.4-1.1-32.9-16.2-32.9-34.9c0-6.1,1.7-11.8,4.5-16.8L86.5,59.7l-2.1-6.9l45.7,40.4c18.4,1.1,32.9,16.2,32.9,34.9c0,6.2-1.8,12-4.6,17l10.6,51.3L170.5,201.4L170.5,201.4z M128,105.7c-12.3,0-22.3,10-22.3,22.3s10,22.3,22.3,22.3s22.3-10,22.3-22.3S140.3,105.7,128,105.7L128,105.7z" />
           </svg>

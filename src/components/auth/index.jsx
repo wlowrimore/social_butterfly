@@ -1,11 +1,13 @@
 'use client'
 import { useContext, useMemo, useState } from 'react'
 import AuthAnimation from 'public/assets/animations/auth-page-animation.json';
+import HomeAnimation from 'public/assets/animations/home-page-animation.json';
 import Lottie from 'react-lottie-player';
 import useForm from '@/hooks/useForm'
 import Image from 'next/image'
 import GoogleLogo from 'public/assets/logos/google_logo.svg'
-import localFont from 'next/font/local'
+import localFont from 'next/font/local';
+import { Satisfy } from 'next/font/google';
 import {
   GlobalContext,
   GlobalDispatchContext
@@ -18,14 +20,14 @@ import LoadingOverlay from '../LoadingOverlay'
 import useFetchCurrentUser from '@/utils/fetchCurrentUser'
 import { collection, doc, getDocs, setDoc, where, query, serverTimestamp } from 'firebase/firestore'
 
-const lounge = localFont({
-  src: [
-    {
-      path: '../../app/fonts/lounge.ttf',
-      weight: '600'
-    }
-  ]
-})
+// const lounge = localFont({
+//   src: [
+//     {
+//       path: '../../app/fonts/lounge.ttf',
+//       weight: '600'
+//     }
+//   ]
+// })
 
 // const Auth = () => {
 //   const [isLoginForm, setIsLoginForm] = useState(false)
@@ -162,6 +164,11 @@ const lounge = localFont({
 //     })
 //   }
 
+const satisfy = Satisfy({
+  subsets: ['latin'],
+  weight: '400'
+})
+
 const Auth = () => {
   const [isLoginForm, setIsLoginForm] = useState(false);
 
@@ -223,7 +230,7 @@ const Auth = () => {
         createdAt: serverTimestamp(),
       });
 
-      toast.success('welcome to photogram by william lowrimore & fakenamedev.com');
+      toast.success('welcome to Famshare by william lowrimore & fakenamedev.com');
 
       dispatch({
         type: 'SET_IS_ONBOARDED',
@@ -305,19 +312,19 @@ const Auth = () => {
   };
 
   return (
-    <main className='min-h-screen w-screen flex items-center justify-center bg-[#fafafa] p-12'>
+    <main className='min-h-screen w-screen flex items-center justify-center bg-[#fafafa] py-12 pr-20'>
       {/* {isLoading && <LoadingOverlay />} */}
       <div className='w-4/5 flex justify-center'>
-        <div className='w-[32rem] rotate-[12deg] h-auto'>
+        <div className='w-[45rem] h-auto'>
           <Lottie
             play
-            loop
-            animationData={AuthAnimation}
+            loop={false}
+            animationData={HomeAnimation}
             className='w-full h-auto'
           />
         </div>
         <div className='w-1/3 flex flex-col justify-center items-center'>
-          <div className='h-auto bg-white border border-gray-300 mb-2 relative'>
+          <div className='h-auto bg-white border border-gray-300 rounded mb-2 relative'>
             {isLoading && <LoadingOverlay />}
             {!isAuthenticated && (
               <form
@@ -325,9 +332,9 @@ const Auth = () => {
                 className='flex flex-col space-y-4 pt-12 pb-6 px-12 items-center'
               >
                 <div
-                  className={`${lounge.className} tracking-wider text-5xl pb-12`}
+                  className={`${satisfy.className} text-5xl pb-12`}
                 >
-                  PhotoGram
+                  <h1 className='text-emerald-800 underline'>Famshare</h1>
                 </div>
                 <input
                   type='email'
@@ -351,7 +358,7 @@ const Auth = () => {
                 />
                 <button
                   type='submit'
-                  className='w-full bg-red-400/70 text-white text-sm font-semibold py-1 px-6 border-none rounded active:scale-95 transform transition disabled:bg-neutral-300 disabled:scale-100'
+                  className='w-full bg-emerald-800/80 hover:bg-emerald-700/80 text-white tracking-wide font-semibold py-1 px-6 border-none rounded active:scale-95 transform transition disabled:bg-neutral-300 disabled:scale-100'
                   disabled={isDisabled}
                 >
                   {isLoginForm ? 'Login' : 'Signup'}
@@ -364,7 +371,7 @@ const Auth = () => {
                 className='flex flex-col space-y-4 pt-12 pb-6 px-12 items-center'
               >
                 <div
-                  className={`${lounge.className} tracking-wider text-5xl pb-12`}
+                  className={`${satisfy.className} tracking-wider text-5xl pb-12`}
                 >
                   PhotoGram
                 </div>
@@ -388,7 +395,7 @@ const Auth = () => {
                 />
                 <button
                   type='submit'
-                  className='w-full bg-red-400/70 text-white text-sm font-semibold py-1 px-6 border-none rounded active:scale-95 transform transition disabled:bg-neutral-300 disabled:scale-100'
+                  className='w-full bg-emerald-800/80 hover:bg-emerald-700/80 text-white text-sm font-semibold py-1 px-6 border-none rounded active:scale-95 transform transition disabled:bg-neutral-300 disabled:scale-100'
                   disabled={!onboardingForm.username || !onboardingForm.fullName}
                 >
                   Submit
@@ -416,7 +423,7 @@ const Auth = () => {
               )}
             </div>
           </div>
-          <div className='w-[88%] xl:w-[73%] h-[4rem] bg-white mb-2 flex items-center justify-center mx-auto border border-neutral-400'>
+          <div className='w-auto px-[4.7rem] py-5 bg-white mb-2 flex items-center justify-center mx-auto border border-neutral-300 rounded'>
             <h2 className='w-fit text-sm text-center text-neutral-700'>
               {isLoginForm
                 ? "Don't have an account?"
