@@ -33,9 +33,9 @@ const Feed = ({ setIsAuthenticated }) => {
   return (
     <>
       <Header />
-      <div className='flex w-full max-w-screen-lg ml-[35rem] mt-12 gap-6'>
+      <div className='flex w-full max-w-screen-lg ml-[35rem] mt-16 gap-6'>
         <div className='flex flex-col w-full space-y-5'>
-          <section className='flex mb-12 space-x-4 bg-transparent'>
+          <section className='flex mb-8 space-x-4 bg-transparent'>
             {new Array(8).fill(0).map((_, i) => (
               <div
                 key={i}
