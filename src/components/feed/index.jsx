@@ -3,11 +3,6 @@
 import { useState, useEffect, useMemo } from 'react'
 import Image from 'next/image'
 import Header from '../header'
-import EmptyHeart from '../Hearts/EmptyHeart'
-import Messages from '../Messages'
-import SharePost from '../SharePost'
-import SavePost from '../SavePost'
-import SmileyEmoji from '../SmileyEmoji'
 import Post from '../post'
 
 const Feed = ({ setIsAuthenticated }) => {
@@ -46,7 +41,7 @@ const Feed = ({ setIsAuthenticated }) => {
           <section className='flex flex-col gap-y-6'>
             {
               new Array(5).fill(1).map((_, i) => (
-                <Post key={i} />
+                <Post key={i} index={postIndex} />
               ))
             }
           </section>

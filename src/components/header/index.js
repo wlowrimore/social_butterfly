@@ -31,7 +31,7 @@ const Header = () => {
   }
 
   return (
-    <header className='w-[5rem] lg:w-[15rem] xl:w-[21rem] min-h-screen fixed flex flex-col mx-auto p-6 bg-white border-r border-neutral-400/50 shadow-md'>
+    <header className='w-[5rem] lg:w-[15rem] xl:w-[21rem] min-h-screen fixed flex flex-col mx-auto p-6 bg-white border-r border-neutral-400/50 shadow-md mt-12'>
       <div className={`hidden lg:block ${satisfy.className} text-4xl tracking-wider pb-6 mb-5`}>
         <h2>Famshare</h2>
       </div>
